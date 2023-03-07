@@ -40,6 +40,8 @@ document.getElementById("news_category_field").addEventListener("click", functio
 const loadClickedNews=(id,category_name)=>{
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     fetch(url).then(response=>response.json()).then(data =>showClickedNews(data.data,category_name));
+    const spinnerField = document.getElementById("spinner-field");
+    spinnerField.classList.remove("d-none");
 }
 const showClickedNews = (data,category_name) =>{
     const newsCategoryFieldMsg = document.getElementById("news_category_field_msg");
@@ -69,6 +71,8 @@ const showClickedNews = (data,category_name) =>{
         `
         newsDetailsField.appendChild(newNews)
     }
+    const spinnerField = document.getElementById("spinner-field");
+    spinnerField.classList.add("d-none");
 }
 loadClickedNews('08',"All News")
 loadNewsCategory();
