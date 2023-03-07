@@ -63,7 +63,13 @@ const showClickedNews = (data,category_name) =>{
                 <div class="card-body">
                   <b><h5 class="card-title">${data[i].title}</h5></b>
                   <p class="card-text">${data[i].details.slice(0,500)}...</p>
-                  <p class="card-text"><small class="text-muted">${data[i].author.published_date}</small></p>
+                  <div class="d-flex">
+                  <img class="mx-2 rounded-circle img-fluid text-small" style="width: 50px; height: 50px;"src="${data[i].author.img}">
+                  <div>
+                  <h5 class="card-text" >${data[i].author.name}</h5>
+                  <p class="card-text" style=" line-height: 0.8;"><small class="text-muted">${data[i].author.published_date}</small></p>
+                  </div>
+                  </div>
                 </div>
               </div>
             </div>
