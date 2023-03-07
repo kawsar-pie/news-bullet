@@ -51,7 +51,6 @@ const showClickedNews = (data,category_name) =>{
         <p class="bg-white border rounded-2 px-2 py-2">${data.length} items found for category <span class="text-success fs-5">${category_name}</span></p>
         `
     const newsDetailsField = document.getElementById("news_details_field");
-    newsDetailsField.innerHTML = ``;
     data.sort((a, b) => {
         if (a.total_view < b.total_view) {
           return 1;
@@ -61,6 +60,7 @@ const showClickedNews = (data,category_name) =>{
           return 0;
         }
       })
+    newsDetailsField.innerHTML = ``;
     for(let i=0;i<data.length;i++){
         // console.log(data.news_category[i].category_name);
         const newNews = document.createElement('div');
