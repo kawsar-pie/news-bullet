@@ -1,4 +1,5 @@
 var prevClickedId = "08";
+var isSorted = false;
 const loadNewsCategory=()=>{
     const url = "https://openapi.programming-hero.com/api/news/categories";
     fetch(url).then(response=>response.json()).then(data =>displayNewsCategory(data.data));
@@ -6,15 +7,13 @@ const loadNewsCategory=()=>{
 
 const displayNewsCategory = data =>{
     const newsCategoryField = document.getElementById("news_category_field");
+    newsCategoryField.innerHTML=``;
     for(let i=0;i<data.news_category.length;i++){
         // console.log(data.news_category[i].category_name);
         const newCategory = document.createElement('div');
-        {
-            newCategory.innerHTML=`
+        newCategory.innerHTML=`
         <button id="${data.news_category[i].category_id}"class="btn btn-secondary">${data.news_category[i].category_name}</button>
         `
-        }
-        
         newsCategoryField.appendChild(newCategory)
     }
 }
@@ -41,17 +40,23 @@ const loadClickedNews=(id,category_name)=>{
     fetch(url).then(response=>response.json()).then(data =>showClickedNews(data.data,category_name));
     const spinnerField = document.getElementById("spinner-field");
     spinnerField.classList.remove("d-none");
-    
-    
 }
+
+// const isSortedView =()=>{
+//   isSorted=true;
+//   loadNewsCategory();
+// }
+
 const showClickedNews = (data,category_name) =>{
     
     const newsCategoryFieldMsg = document.getElementById("news_category_field_msg");
     newsCategoryFieldMsg.innerHTML=`
-        <p class="bg-white border rounded-2 px-2 py-2">${data.length} items found for category <span class="text-success fs-5">${category_name}</span></p>
+        <p class="bg-white border rounded-2 px-2 py-2">${data.length} items found for category <b class="text-success fs-5">${category_name}</b></p>
         `
     const newsDetailsField = document.getElementById("news_details_field");
-    data.sort((a, b) => {
+
+    // if(isSorted==true){
+      data.sort((a, b) => {
         if (a.total_view < b.total_view) {
           return 1;
         } else if (a.total_view > b.total_view) {
@@ -60,6 +65,7 @@ const showClickedNews = (data,category_name) =>{
           return 0;
         }
       })
+    // }
     newsDetailsField.innerHTML = ``;
     for(let i=0;i<data.length;i++){
         // console.log(data.news_category[i].category_name);
